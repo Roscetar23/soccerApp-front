@@ -164,3 +164,44 @@ export async function saveEstadisticasEquipo(id: string, data: EstadisticasEquip
   }
   return response.json() as Promise<EstadisticasEquipo>;
 }
+
+import { Torneo, CreateTorneoDto } from '@/types/torneo.types';
+
+export async function fetchTorneos(): Promise<Torneo[]> {
+  const response = await fetch(`${BACKEND_URL}/torneos`, {
+    cache: 'no-store',
+  });
+  if (!response.ok) {
+    throw new Error('Error al cargar torneos');
+  }
+  return response.json();
+}
+
+export async function fetchTorneoById(id: string): Promise<Torneo> {
+  const response = await fetch(`${BACKEND_URL}/torneos/${id}`);
+  if (!response.ok) {
+    throw new Error('Error al cargar el torneo');
+  }
+  return response.json();
+}
+
+export async function createTorneo(data: CreateTorneoDto): Promise<Torneo> {
+  const response = await fetch(`${BACKEND_URL}/torneos`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    throw new Error('Error al crear el torneo');
+  }
+  return response.json();
+}
+
+export async function deleteTorneo(id: string): Promise<void> {
+  const response = await fetch(`${BACKEND_URL}/torneos/${id}`, {
+    method: 'DELETE',
+  });
+  if (!response.ok) {
+    throw new Error('Error al eliminar el torneo');
+  }
+}
