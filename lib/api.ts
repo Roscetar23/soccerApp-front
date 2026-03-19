@@ -1,6 +1,6 @@
 import { BACKEND_URL } from './constants';
 import { Partido } from '@/types/partido.types';
-import { Equipo, Liga, CreateEquipoDto, UpdateEquipoDto } from '@/types/equipo.types';
+import { Equipo, Liga, CreateEquipoDto, UpdateEquipoDto, EstadisticasEquipo } from '@/types/equipo.types';
 
 export class ApiError extends Error {
   constructor(public readonly status: number, message: string) {
@@ -141,4 +141,26 @@ export async function getFavoritosByUsuario(userId: string): Promise<Favorito[]>
     throw new Error('Error al obtener favoritos');
   }
   return response.json();
+}
+
+export async function fetchEstadisticasEquipo(id: string): Promise<EstadisticasEquipo> {
+  const response = await fetch(`${BACKEND_URL}/equipos/${id}/estadisticas`, {
+    cache: 'no-store',
+  });
+  if (!response.ok) {
+    throw new Error('Error al cargar estadísticas del equipo');
+  }
+  return response.json() as Promise<EstadisticasEquipo>;
+}
+
+export async function saveEstadisticasEquipo(id: string, data: EstadisticasEquipo): Promise<EstadisticasEquipo> {
+  const response = await fetch(`${BACKEND_URL}/equipos/${id}/estadisticas`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    throw new Error('Error al guardar estadísticas del equipo');
+  }
+  return response.json() as Promise<EstadisticasEquipo>;
 }

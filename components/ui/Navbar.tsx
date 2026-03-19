@@ -11,8 +11,9 @@ interface NavLink {
 }
 
 const links: NavLink[] = [
-  { href: '/', label: 'Inicio' },
-  { href: '/contador', label: 'Partidos' },
+  { href: '/navegacion', label: 'Inicio' },
+  { href: '/navegacion/equipos', label: 'Equipos' },
+  { href: '/navegacion/partidos', label: 'Partidos' },
 ];
 
 export default function Navbar() {

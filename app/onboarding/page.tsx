@@ -47,6 +47,11 @@ export default function OnboardingWizard() {
     getFavoritosByUsuario(userId)
       .then((favoritos) => {
         if (favoritos.length >= 1) {
+          // Sincronizar localStorage para que el dashboard funcione
+          try {
+            localStorage.setItem('ligaFavorita', favoritos[0].liga);
+            localStorage.setItem('equipoFavorito', favoritos[0].equipo);
+          } catch {}
           router.push('/navegacion');
         } else {
           setCheckingFavorito(false);

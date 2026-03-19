@@ -21,3 +21,13 @@ export interface UpdateEquipoDto {
   fechaCreacion?: string;
   liga?: Liga;
 }
+
+export type ResultadoPartido = "G" | "P" | "E";
+
+export interface EstadisticasEquipo {
+  ultimosPartidos: ResultadoPartido[];
+  porcentajeVictorias: number;
+  promedioPases: number;
+  promedioTirosAlArco: number;
+  promedioFaltas: number;
+}

@@ -132,12 +132,20 @@ export default function AdminEquiposPage() {
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <button
-                      onClick={() => handleDelete(equipo._id)}
-                      className="text-red-600 hover:text-red-900"
-                    >
-                      Eliminar
-                    </button>
+                    <div className="flex justify-end items-center gap-4">
+                      <Link
+                        href={`/admin/equipos/${equipo._id}/estadisticas`}
+                        className="text-emerald-600 hover:text-emerald-900"
+                      >
+                        Estadísticas
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(equipo._id)}
+                        className="text-red-600 hover:text-red-900"
+                      >
+                        Eliminar
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

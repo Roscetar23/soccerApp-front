@@ -2,8 +2,8 @@ import { fetchProximosPartidos } from '@/lib/api';
 import CountdownCard from '@/components/contador/CountdownCard';
 import ErrorMessage from '@/components/ui/ErrorMessage';
 
-export default async function ContadorPage() {
-  let partidos = [];
+export default async function PartidosPage() {
+  let partidos: Awaited<ReturnType<typeof fetchProximosPartidos>> = [];
   let error = null;
 
   try {
@@ -16,7 +16,10 @@ export default async function ContadorPage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 px-4 py-8">
       <div className="max-w-5xl mx-auto">
         <h1 className="text-3xl font-bold text-white mb-8 text-center">
-          Próximos <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Partidos</span>
+          Próximos{' '}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
+            Partidos
+          </span>
         </h1>
 
         {error && <ErrorMessage message={error} />}
