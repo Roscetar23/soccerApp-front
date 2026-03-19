@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { fetchEquipos, saveFavorito } from '@/lib/api';
+import { useSession } from 'next-auth/react';
+import { fetchEquipos, saveFavorito, getFavoritosByUsuario, ApiError } from '@/lib/api';
 import { Equipo, Liga } from '@/types/equipo.types';
 import LigaCard from '@/components/onboarding/LigaCard';
 import EquipoCard from '@/components/onboarding/EquipoCard';
@@ -15,11 +16,13 @@ const LIGAS: Liga[] = ['colombiana', 'española', 'inglesa'];
 
 export default function OnboardingWizard() {
   const router = useRouter();
+  const { data: session, status } = useSession();
   const [paso, setPaso] = useState<Paso>(1);
   const [ligaSeleccionada, setLigaSeleccionada] = useState<Liga | null>(null);
   const [equipos, setEquipos] = useState<Equipo[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [checkingFavorito, setCheckingFavorito] = useState(true);
 
   const cargarEquipos = async (liga: Liga) => {
     setLoading(true);
@@ -35,6 +38,26 @@ export default function OnboardingWizard() {
   };
 
   useEffect(() => {
+    if (status === 'loading') return;
+    const userId = session?.user?.id;
+    if (!userId) {
+      setCheckingFavorito(false);
+      return;
+    }
+    getFavoritosByUsuario(userId)
+      .then((favoritos) => {
+        if (favoritos.length >= 1) {
+          router.push('/navegacion');
+        } else {
+          setCheckingFavorito(false);
+        }
+      })
+      .catch(() => {
+        setCheckingFavorito(false);
+      });
+  }, [status, session]);
+
+  useEffect(() => {
     if (paso === 2 && ligaSeleccionada) {
       cargarEquipos(ligaSeleccionada);
     }
@@ -46,19 +69,34 @@ export default function OnboardingWizard() {
   };
 
   const handleSelectEquipo = async (equipo: Equipo) => {
+    const userId = session?.user?.id;
     try {
       localStorage.setItem('ligaFavorita', equipo.liga);
       localStorage.setItem('equipoFavorito', equipo._id);
     } catch {}
     try {
-      await saveFavorito(equipo.liga, equipo._id);
-    } catch {}
-    router.push('/navegacion');
+      await saveFavorito(equipo.liga, equipo._id, userId!);
+      router.push('/navegacion');
+    } catch (err) {
+      if (err instanceof ApiError && err.status === 409) {
+        router.push('/navegacion');
+      } else {
+        setError('No se pudo guardar tu selección. Intenta de nuevo.');
+      }
+    }
   };
 
   const handleAtras = () => {
     setPaso(1);
   };
+
+  if (checkingFavorito) {
+    return (
+      <div className="bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 min-h-screen flex items-center justify-center">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 min-h-screen flex flex-col items-center justify-center px-4 py-12">
@@ -123,6 +161,10 @@ export default function OnboardingWizard() {
                 />
               ))}
             </div>
+          )}
+
+          {error && paso === 2 && !loading && equipos.length > 0 && (
+            <ErrorMessage message={error} />
           )}
 
           <button

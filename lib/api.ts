@@ -2,6 +2,13 @@ import { BACKEND_URL } from './constants';
 import { Partido } from '@/types/partido.types';
 import { Equipo, Liga, CreateEquipoDto, UpdateEquipoDto } from '@/types/equipo.types';
 
+export class ApiError extends Error {
+  constructor(public readonly status: number, message: string) {
+    super(message);
+    this.name = 'ApiError';
+  }
+}
+
 export async function fetchProximosPartidos(): Promise<Partido[]> {
   const response = await fetch(`${BACKEND_URL}/partidos/proximos`, {
     cache: 'no-store',
@@ -113,13 +120,25 @@ export async function deleteEquipo(id: string): Promise<void> {
   }
 }
 
-export async function saveFavorito(liga: string, equipo: string): Promise<void> {
+export async function saveFavorito(liga: string, equipo: string, userId: string): Promise<void> {
   const response = await fetch(`${BACKEND_URL}/favoritos`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ liga, equipo }),
+    body: JSON.stringify({ liga, equipo, userId }),
   });
   if (!response.ok) {
-    throw new Error('Error al guardar favorito');
+    throw new ApiError(response.status, 'Error al guardar favorito');
   }
+}
+
+export type Favorito = { liga: string; equipo: string; userId: string };
+
+export async function getFavoritosByUsuario(userId: string): Promise<Favorito[]> {
+  const response = await fetch(`${BACKEND_URL}/favoritos/usuario/${userId}`, {
+    cache: 'no-store',
+  });
+  if (!response.ok) {
+    throw new Error('Error al obtener favoritos');
+  }
+  return response.json();
 }

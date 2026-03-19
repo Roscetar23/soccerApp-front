@@ -57,6 +57,12 @@ export default function AdminPage() {
           >
             + Crear Partido
           </Link>
+          <Link
+            href="/admin/register"
+            className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+          >
+            + Registrar Usuario
+          </Link>
         </div>
       </div>
 
