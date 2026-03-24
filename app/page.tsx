@@ -32,7 +32,7 @@ export default async function Home() {
         <div className="text-center space-y-6 max-w-5xl">
           <div className="inline-block">
             <div className="text-5xl md:text-7xl font-bold mb-4">
-              <span className="text-white italic">THE MATCHssssss</span>
+              <span className="text-white italic">THE MATCH</span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 italic">AWAITS</span>
             </div>
           </div>
