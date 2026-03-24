@@ -9,6 +9,7 @@ import ErrorMessage from '@/components/ui/ErrorMessage';
 import EquipoHeader from '@/components/dashboard/EquipoHeader';
 import EstadisticasGrid from '@/components/dashboard/EstadisticasGrid';
 import UltimosPartidosChart from '@/components/dashboard/UltimosPartidosChart';
+import ProbabilidadPredictiva from '@/components/dashboard/ProbabilidadPredictiva';
 
 export default function NavegacionPage() {
   const [equipoId, setEquipoId] = useState<string | null | undefined>(undefined);
@@ -73,7 +74,7 @@ export default function NavegacionPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 px-4 py-8">
+    <div className="min-h-screen bg-background transition-colors duration-300 px-4 py-8">
       <div className="max-w-3xl mx-auto">
         {/* Mientras el useEffect no corrió aún (SSR/hydration) */}
         {equipoId === undefined && (
@@ -84,12 +85,12 @@ export default function NavegacionPage() {
 
         {equipoId === null && (
           <div className="text-center space-y-4 mt-20">
-            <p className="text-gray-400 text-lg">
+            <p className="text-foreground/60 text-lg">
               Completa el onboarding para ver tu equipo favorito
             </p>
             <Link
               href="/onboarding"
-              className="inline-block mt-2 px-6 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-semibold transition-colors"
+              className="inline-block mt-2 px-6 py-3 rounded-xl bg-neon hover:bg-neon/80 text-black font-semibold shadow-lg shadow-neon/20 transition-all"
             >
               Ir al onboarding
             </Link>
@@ -107,7 +108,7 @@ export default function NavegacionPage() {
             <ErrorMessage message={equipoError} />
             <button
               onClick={handleRetry}
-              className="mt-4 px-5 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-semibold transition-colors"
+              className="mt-4 px-6 py-3 rounded-xl bg-neon hover:bg-neon/80 text-black font-semibold shadow-lg shadow-neon/20 transition-all"
             >
               Reintentar
             </button>
@@ -125,9 +126,23 @@ export default function NavegacionPage() {
             {estadisticas && (
               <div className="space-y-6 mt-4">
                 <EstadisticasGrid estadisticas={estadisticas} />
-                <div className="bg-slate-800 rounded-xl p-5">
-                  <h2 className="text-slate-300 text-sm font-semibold mb-3">Últimos partidos</h2>
-                  <UltimosPartidosChart resultados={estadisticas.ultimosPartidos} />
+                
+                {/* Gráficas secundarias en Grid Desktop */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Historial Chart */}
+                  <div className="bg-card transition-colors rounded-2xl p-6 border border-foreground/5 shadow-xl h-full">
+                    <h2 className="bebas-neue-regular tracking-widest text-2xl text-foreground/90 mb-4 drop-shadow-sm text-center md:text-left">
+                      Últimos partidos
+                    </h2>
+                    <div className="h-[250px] w-full flex items-center justify-center">
+                      <UltimosPartidosChart resultados={estadisticas.ultimosPartidos} />
+                    </div>
+                  </div>
+
+                  {/* Motor Predictivo */}
+                  <div className="h-full">
+                    <ProbabilidadPredictiva equipo={equipo} estadisticas={estadisticas} />
+                  </div>
                 </div>
               </div>
             )}

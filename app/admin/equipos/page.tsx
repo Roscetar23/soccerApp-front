@@ -49,13 +49,13 @@ export default function AdminEquiposPage() {
         <div className="flex gap-4">
           <Link
             href="/admin"
-            className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+            className="px-4 py-2 border border-foreground/20 rounded-lg hover:bg-foreground/5"
           >
             Volver a Admin
           </Link>
           <Link
             href="/admin/equipos/crear"
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="px-6 py-2 bg-blue-600 text-foreground rounded-lg hover:bg-blue-700"
           >
             + Crear Equipo
           </Link>
@@ -73,7 +73,7 @@ export default function AdminEquiposPage() {
             const val = e.target.value;
             setLigaFiltro(val === '' ? undefined : (val as Liga));
           }}
-          className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border border-foreground/20 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">Todas</option>
           <option value="colombiana">colombiana</option>
@@ -91,7 +91,7 @@ export default function AdminEquiposPage() {
       ) : (
         <div className="bg-white rounded-lg shadow overflow-hidden">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="bg-foreground/5">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                   Nombre
@@ -114,7 +114,7 @@ export default function AdminEquiposPage() {
               {equipos.map((equipo) => (
                 <tr key={equipo._id}>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">{equipo.nombre}</div>
+                    <div className="text-sm font-medium text-foreground">{equipo.nombre}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <img

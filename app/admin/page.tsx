@@ -47,19 +47,19 @@ export default function AdminPage() {
         <div className="flex gap-4">
           <Link
             href="/"
-            className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+            className="px-4 py-2 border border-foreground/20 rounded-lg hover:bg-foreground/5"
           >
             Volver al Inicio
           </Link>
           <Link
             href="/admin/crear"
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="px-6 py-2 bg-blue-600 text-foreground rounded-lg hover:bg-blue-700"
           >
             + Crear Partido
           </Link>
           <Link
             href="/admin/register"
-            className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+            className="px-6 py-2 bg-green-600 text-foreground rounded-lg hover:bg-green-700"
           >
             + Registrar Usuario
           </Link>
@@ -75,7 +75,7 @@ export default function AdminPage() {
       ) : (
         <div className="bg-white rounded-lg shadow overflow-hidden">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="bg-foreground/5">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                   Equipos
@@ -98,7 +98,7 @@ export default function AdminPage() {
               {partidos.map((partido) => (
                 <tr key={partido._id}>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">
+                    <div className="text-sm font-medium text-foreground">
                       {partido.equipoLocal} vs {partido.equipoVisitante}
                     </div>
                   </td>

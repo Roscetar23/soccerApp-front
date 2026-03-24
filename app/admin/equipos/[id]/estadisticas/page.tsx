@@ -134,7 +134,7 @@ export default function EstadisticasEquipoPage({ params }: PageProps) {
             value={porcentajeVictorias}
             onChange={(e) => setPorcentajeVictorias(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-foreground/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -149,7 +149,7 @@ export default function EstadisticasEquipoPage({ params }: PageProps) {
             value={promedioPases}
             onChange={(e) => setPromedioPases(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-foreground/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -164,7 +164,7 @@ export default function EstadisticasEquipoPage({ params }: PageProps) {
             value={promedioTirosAlArco}
             onChange={(e) => setPromedioTirosAlArco(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-foreground/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -179,7 +179,7 @@ export default function EstadisticasEquipoPage({ params }: PageProps) {
             value={promedioFaltas}
             onChange={(e) => setPromedioFaltas(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-foreground/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -204,7 +204,7 @@ export default function EstadisticasEquipoPage({ params }: PageProps) {
                 <select
                   value={resultado}
                   onChange={(e) => handlePartidoChange(index, e.target.value as ResultadoPartido)}
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 px-3 py-2 border border-foreground/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="G">G — Ganado</option>
                   <option value="P">P — Perdido</option>
@@ -220,7 +220,7 @@ export default function EstadisticasEquipoPage({ params }: PageProps) {
               </div>
             ))}
             {ultimosPartidos.length === 0 && (
-              <p className="text-sm text-gray-400 italic">Sin partidos agregados.</p>
+              <p className="text-sm text-foreground/60 italic">Sin partidos agregados.</p>
             )}
           </div>
         </div>
@@ -229,13 +229,13 @@ export default function EstadisticasEquipoPage({ params }: PageProps) {
           <button
             type="submit"
             disabled={submitting || success}
-            className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
+            className="flex-1 bg-blue-600 text-foreground py-2 px-4 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
           >
             {submitting ? 'Guardando...' : 'Guardar Estadísticas'}
           </button>
           <Link
             href="/admin/equipos"
-            className="flex-1 text-center border border-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50"
+            className="flex-1 text-center border border-foreground/20 py-2 px-4 rounded-lg hover:bg-foreground/5"
           >
             Cancelar
           </Link>

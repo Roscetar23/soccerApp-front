@@ -42,10 +42,10 @@ function EquipoRow({ equipo }: { equipo: Equipo }) {
   };
 
   return (
-    <div className="bg-slate-800 rounded-xl overflow-hidden">
+    <div className="bg-card transition-colors rounded-xl overflow-hidden">
       <button
         onClick={handleToggle}
-        className="w-full flex items-center justify-between px-5 py-4 hover:bg-slate-700 transition-colors"
+        className="w-full flex items-center justify-between px-5 py-4 hover:bg-foreground/5 transition-colors transition-colors"
       >
         <div className="flex items-center gap-4">
           <div className="w-10 h-10 relative flex-shrink-0">
@@ -57,9 +57,9 @@ function EquipoRow({ equipo }: { equipo: Equipo }) {
               unoptimized
             />
           </div>
-          <span className="text-white font-medium">{equipo.nombre}</span>
+          <span className="text-foreground font-medium">{equipo.nombre}</span>
         </div>
-        <span className="text-slate-400 text-sm">{open ? '▲ Ocultar' : '▼ Ver estadísticas'}</span>
+        <span className="text-foreground/60 text-sm">{open ? '▲ Ocultar' : '▼ Ver estadísticas'}</span>
       </button>
 
       {open && (
@@ -73,8 +73,8 @@ function EquipoRow({ equipo }: { equipo: Equipo }) {
           {stats && (
             <div className="space-y-4">
               <EstadisticasGrid estadisticas={stats} />
-              <div className="bg-slate-900 rounded-lg p-4">
-                <p className="text-slate-400 text-xs font-semibold mb-2 uppercase tracking-wide">Últimos partidos</p>
+              <div className="bg-background transition-colors rounded-lg p-4">
+                <p className="text-foreground/60 text-xs font-semibold mb-2 uppercase tracking-wide">Últimos partidos</p>
                 <UltimosPartidosChart resultados={stats.ultimosPartidos} />
               </div>
             </div>
@@ -112,7 +112,7 @@ export default function EquiposPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 flex justify-center items-center">
+      <div className="min-h-screen bg-background transition-colors duration-300 flex justify-center items-center">
         <Spinner />
       </div>
     );
@@ -120,19 +120,19 @@ export default function EquiposPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 flex justify-center items-center">
+      <div className="min-h-screen bg-background transition-colors duration-300 flex justify-center items-center">
         <p className="text-red-400">{error}</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 px-4 py-8">
+    <div className="min-h-screen bg-background transition-colors duration-300 px-4 py-8">
       <div className="max-w-3xl mx-auto space-y-10">
-        <h1 className="text-3xl font-bold text-white">Equipos</h1>
+        <h1 className="text-3xl font-bold text-foreground">Equipos</h1>
         {LIGAS.map((liga) => (
           <section key={liga}>
-            <h2 className="text-emerald-400 font-semibold text-lg mb-4">{LIGA_LABELS[liga]}</h2>
+            <h2 className="text-neon font-semibold text-lg mb-4">{LIGA_LABELS[liga]}</h2>
             {equiposPorLiga[liga].length === 0 ? (
               <p className="text-slate-500 text-sm">No hay equipos registrados en esta liga.</p>
             ) : (

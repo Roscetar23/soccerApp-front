@@ -57,7 +57,7 @@ export default function CrearEquipoPage() {
             type="text"
             name="nombre"
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-foreground/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Real Madrid"
           />
         </div>
@@ -70,7 +70,7 @@ export default function CrearEquipoPage() {
             type="url"
             name="escudo"
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-foreground/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="https://ejemplo.com/escudo.png"
           />
         </div>
@@ -83,7 +83,7 @@ export default function CrearEquipoPage() {
             type="date"
             name="fechaCreacion"
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-foreground/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -94,7 +94,7 @@ export default function CrearEquipoPage() {
           <select
             name="liga"
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-foreground/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="colombiana">colombiana</option>
             <option value="española">española</option>
@@ -106,13 +106,13 @@ export default function CrearEquipoPage() {
           <button
             type="submit"
             disabled={loading}
-            className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
+            className="flex-1 bg-blue-600 text-foreground py-2 px-4 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
           >
             {loading ? 'Creando...' : 'Crear Equipo'}
           </button>
           <Link
             href="/admin/equipos"
-            className="flex-1 text-center border border-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50"
+            className="flex-1 text-center border border-foreground/20 py-2 px-4 rounded-lg hover:bg-foreground/5"
           >
             Cancelar
           </Link>

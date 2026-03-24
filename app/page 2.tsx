@@ -15,7 +15,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-background">
       {/* Animated background pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
@@ -24,15 +24,15 @@ export default async function Home() {
       </div>
       
       {/* Glow effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon/20 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
 
       <main className="relative flex flex-col items-center justify-center min-h-screen gap-12 px-4 md:px-8 py-12">
         <div className="text-center space-y-6 max-w-5xl">
           <div className="inline-block">
             <div className="text-5xl md:text-7xl font-bold mb-4">
-              <span className="text-white italic">THE MATCHssssss</span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 italic">AWAITS</span>
+              <span className="text-foreground italic">THE MATCHssssss</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon to-cyan-500 italic">AWAITS</span>
             </div>
           </div>
           
@@ -48,23 +48,23 @@ export default async function Home() {
             <CountdownClock targetDate={new Date(partidoMundial.fechaPartido)} />
             
             <div className="text-center space-y-4">
-              <div className="inline-flex items-center gap-3 bg-slate-800/50 backdrop-blur-sm px-6 py-3 rounded-full border border-emerald-500/20">
-                <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-cyan-400 rounded-full flex items-center justify-center text-2xl shadow-lg shadow-emerald-500/50">
+              <div className="inline-flex items-center gap-3 bg-card/80 transition-colors backdrop-blur-sm px-6 py-3 rounded-full border border-neon/30">
+                <div className="w-12 h-12 bg-gradient-to-br from-neon to-cyan-500 rounded-full flex items-center justify-center text-2xl shadow-lg shadow-emerald-500/50">
                   ⚽
                 </div>
                 <div className="text-left">
-                  <p className="text-sm text-gray-400 uppercase tracking-wide">Match Details</p>
-                  <p className="text-lg font-bold text-white">
+                  <p className="text-sm text-foreground/60 uppercase tracking-wide">Match Details</p>
+                  <p className="text-lg font-bold text-foreground">
                     {partidoMundial.equipoLocal} vs {partidoMundial.equipoVisitante}
                   </p>
                 </div>
               </div>
               
-              <p className="text-emerald-400 font-semibold text-lg">
+              <p className="text-neon font-semibold text-lg">
                 {partidoMundial.competicion}
               </p>
               
-              <p className="text-gray-400 text-sm">
+              <p className="text-foreground/60 text-sm">
                 {new Date(partidoMundial.fechaPartido).toLocaleString('es-ES', {
                   dateStyle: 'full',
                   timeStyle: 'short',
@@ -73,8 +73,8 @@ export default async function Home() {
             </div>
           </div>
         ) : (
-          <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl shadow-2xl p-12 border border-emerald-500/20">
-            <p className="text-xl text-gray-400">
+          <div className="bg-card/80 transition-colors backdrop-blur-sm rounded-2xl shadow-2xl p-12 border border-neon/30">
+            <p className="text-xl text-foreground/60">
               No hay partidos programados
             </p>
           </div>

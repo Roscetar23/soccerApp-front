@@ -1,10 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { EquipoTorneo } from "@/types/torneo.types";
+import { useState, useMemo } from "react";
+import { Equipo } from "@/types/equipo.types";
+import { PartidoTorneo } from "@/types/partido.types";
+import { computarRondasEliminacion } from "@/lib/torneo.utils";
 
 interface BracketEliminacionProps {
-  equipos: EquipoTorneo[];
+  equipos: Equipo[];
+  partidos: PartidoTorneo[];
 }
 
 const SLOT_HEIGHT = 56;
@@ -14,7 +17,7 @@ const HEADER_HEIGHT = 28;
 
 function getRondaLabel(rondaIdx: number, totalRondas: number): string {
   const fromEnd = totalRondas - 1 - rondaIdx;
-  if (rondaIdx === 0) return "Ronda 1";
+  if (rondaIdx === 0) return "Primera Ronda";
   if (fromEnd === 0) return "Campeón";
   if (fromEnd === 1) return "Final";
   if (fromEnd === 2) return "Semifinal";
@@ -22,17 +25,14 @@ function getRondaLabel(rondaIdx: number, totalRondas: number): string {
   return `Ronda ${rondaIdx + 1}`;
 }
 
-function EquipoModal({ equipo, onClose }: { equipo: EquipoTorneo; onClose: () => void }) {
+function EquipoModal({ equipo, onClose }: { equipo: Equipo; onClose: () => void }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center" onClick={onClose}>
-      {/* Overlay oscuro */}
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-      {/* Modal */}
       <div
         className="relative z-10 bg-slate-800 border border-slate-600 rounded-2xl shadow-2xl flex flex-col w-72"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header con X */}
         <div className="flex justify-end px-4 pt-4">
           <button
             onClick={onClose}
@@ -41,13 +41,11 @@ function EquipoModal({ equipo, onClose }: { equipo: EquipoTorneo; onClose: () =>
             ✕
           </button>
         </div>
-        {/* Contenido */}
         <div className="flex flex-col items-center gap-5 px-8 pb-8 pt-2">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={equipo.escudo}
             alt={equipo.nombre}
-            className="w-28 h-28 object-contain"
+            className="w-28 h-28 object-contain bg-white rounded-full p-2"
             onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
           />
           <span className="text-white font-bold text-lg text-center">{equipo.nombre}</span>
@@ -57,7 +55,7 @@ function EquipoModal({ equipo, onClose }: { equipo: EquipoTorneo; onClose: () =>
   );
 }
 
-function EquipoSlot({ equipo, esBye }: { equipo: EquipoTorneo | null; esBye: boolean }) {
+function EquipoSlot({ equipo, esBye }: { equipo: Equipo | null; esBye: boolean }) {
   const [open, setOpen] = useState(false);
 
   if (esBye) {
@@ -86,9 +84,10 @@ function EquipoSlot({ equipo, esBye }: { equipo: EquipoTorneo | null; esBye: boo
     <div className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="border border-slate-600 bg-slate-800 hover:bg-slate-700 hover:border-emerald-500 rounded flex items-center px-3 gap-2 transition-colors cursor-pointer w-full"
+        className="border border-slate-600 bg-slate-800 hover:bg-slate-700 hover:border-emerald-500 rounded flex items-center px-3 gap-2 transition-colors cursor-pointer w-full text-left"
         style={{ width: SLOT_WIDTH, height: SLOT_HEIGHT - 8 }}
       >
+        <img src={equipo.escudo} className="w-5 h-5 object-contain bg-white rounded-sm" />
         <span className="text-sm text-white truncate font-medium">{equipo.nombre}</span>
       </button>
       {open && <EquipoModal equipo={equipo} onClose={() => setOpen(false)} />}
@@ -96,30 +95,14 @@ function EquipoSlot({ equipo, esBye }: { equipo: EquipoTorneo | null; esBye: boo
   );
 }
 
-export default function BracketEliminacion({ equipos }: BracketEliminacionProps) {
-  const numRondas = Math.ceil(Math.log2(Math.max(equipos.length, 2)));
-  const totalSlotsPrimeraRonda = Math.pow(2, numRondas);
-
-  type Slot = { equipo: EquipoTorneo | null; esBye: boolean };
-  const rondas: Slot[][] = [];
-
-  const primeraRonda: Slot[] = Array.from({ length: totalSlotsPrimeraRonda }, (_, i) =>
-    i < equipos.length
-      ? { equipo: equipos[i], esBye: false }
-      : { equipo: null, esBye: true }
-  );
-  rondas.push(primeraRonda);
-
-  for (let r = 1; r <= numRondas; r++) {
-    const count = Math.pow(2, numRondas - r);
-    rondas.push(Array.from({ length: count }, () => ({ equipo: null, esBye: false })));
-  }
-
+export default function BracketEliminacion({ equipos, partidos }: BracketEliminacionProps) {
+  const comp = useMemo(() => computarRondasEliminacion(equipos, partidos), [equipos, partidos]);
+  const { rondas, totalSlotsPrimeraRonda } = comp;
   const totalRondas = rondas.length;
-  const totalHeight = totalSlotsPrimeraRonda * SLOT_HEIGHT + HEADER_HEIGHT;
+  const totalHeight = totalSlotsPrimeraRonda * SLOT_HEIGHT + HEADER_HEIGHT + 20;
 
   return (
-    <div className="overflow-x-auto pb-4">
+    <div className="overflow-x-auto pb-4 mt-6 custom-scrollbar">
       <div className="flex flex-row items-stretch min-w-max" style={{ height: totalHeight }}>
         {rondas.map((slots, rondaIdx) => {
           const slotsCount = slots.length;

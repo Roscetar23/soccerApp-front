@@ -1,39 +1,90 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-neon: var(--accent-neon);
+  --color-neon-hover: var(--accent-neon-hover);
+  --color-card: var(--card);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-bebas: var(--font-bebas), ui-sans-serif;
+  --animate-spin-slow: spin-slow 20s linear infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* =========================================
+   Tipografía Global (Títulos en "Negrilla")
+   ========================================= */
+.bebas-neue-regular {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Bebas Neue", sans-serif !important;
+  font-weight: 400 !important; /* Bebas es gruesa por defecto */
+  letter-spacing: 0.05em !important; /* Equivalente a tracking-wider */
+}
+
+/* =========================================
+   Mapeo de Variables CSS 
+   (Diccionario de Modo Claro)
+   ========================================= */
+:root {
+  /* Fondos y Textos */
+  --background: #f8fafc;
+  /* Blanco tiza */
+  --foreground: #09090b;
+  /* Texto casi negro (Premium) */
+  --card: #ffffff;
+  /* Superficies sólidas */
+
+  /* Verde Fútbol (Acentos) */
+  --accent-neon: #10b981;
+  /* Verde esmeralda para fondos claros */
+  --accent-neon-hover: #059669;
+  /* Hover verde más oscuro */
+}
+
+/* =========================================
+   Diccionario de Modo Oscuro (.dark)
+   Controlado por next-themes
+   ========================================= */
+.dark {
+  /* Fondos y Textos */
+  --background: #111111;
+  /* Negro más claro/suave para descanso visual */
+  --foreground: #fafafa;
+  /* Texto casi blanco */
+  --card: #1a1a1a;
+  /* Tarjetas para resaltar sobre background */
+
+  /* Verde Neón Intenso (Premium) para contraste sobre negro */
+  --accent-neon: #39ff14;
+  /* El neón clásico puro */
+  --accent-neon-hover: #32e011;
+}
+
+/* =========================================
+   Estilos Globales de la App
+   ========================================= */
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+
+  /* Transición suave y hermosa cuando el usuario cambia el tema */
+  transition-property: background-color, color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
 }
 
 @keyframes spin-slow {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
-}
-
-.animate-spin-slow {
-  animation: spin-slow 20s linear infinite;
 }

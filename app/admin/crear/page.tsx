@@ -57,7 +57,7 @@ export default function CrearPartidoPage() {
             type="text"
             name="equipoLocal"
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-foreground/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Real Madrid"
           />
         </div>
@@ -70,7 +70,7 @@ export default function CrearPartidoPage() {
             type="text"
             name="equipoVisitante"
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-foreground/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Barcelona"
           />
         </div>
@@ -83,7 +83,7 @@ export default function CrearPartidoPage() {
             type="text"
             name="competicion"
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-foreground/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Champions League"
           />
         </div>
@@ -96,7 +96,7 @@ export default function CrearPartidoPage() {
             type="datetime-local"
             name="fechaPartido"
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-foreground/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -108,7 +108,7 @@ export default function CrearPartidoPage() {
             type="text"
             name="estadio"
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-foreground/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Santiago Bernabéu"
           />
         </div>
@@ -117,13 +117,13 @@ export default function CrearPartidoPage() {
           <button
             type="submit"
             disabled={loading}
-            className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
+            className="flex-1 bg-blue-600 text-foreground py-2 px-4 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
           >
             {loading ? 'Creando...' : 'Crear Partido'}
           </button>
           <Link
             href="/admin"
-            className="flex-1 text-center border border-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50"
+            className="flex-1 text-center border border-foreground/20 py-2 px-4 rounded-lg hover:bg-foreground/5"
           >
             Cancelar
           </Link>

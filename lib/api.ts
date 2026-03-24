@@ -1,5 +1,5 @@
 import { BACKEND_URL } from './constants';
-import { Partido } from '@/types/partido.types';
+import { Partido, PartidoTorneo, CreatePartidoTorneoDto } from '@/types/partido.types';
 import { Equipo, Liga, CreateEquipoDto, UpdateEquipoDto, EstadisticasEquipo } from '@/types/equipo.types';
 
 export class ApiError extends Error {
@@ -70,9 +70,12 @@ export async function deletePartido(id: string): Promise<void> {
   }
 }
 
-export async function fetchEquipos(liga?: Liga): Promise<Equipo[]> {
-  const url = liga ? `${BACKEND_URL}/equipos?liga=${liga}` : `${BACKEND_URL}/equipos`;
-  const response = await fetch(url, { cache: 'no-store' });
+export async function fetchEquipos(liga?: Liga | string, userId?: string): Promise<Equipo[]> {
+  const params = new URLSearchParams();
+  if (liga) params.append('liga', liga);
+  if (userId) params.append('userId', userId);
+  const qs = params.toString() ? `?${params.toString()}` : '';
+  const response = await fetch(`${BACKEND_URL}/equipos${qs}`, { cache: 'no-store' });
   if (!response.ok) {
     throw new Error('Error al cargar equipos');
   }
@@ -167,8 +170,9 @@ export async function saveEstadisticasEquipo(id: string, data: EstadisticasEquip
 
 import { Torneo, CreateTorneoDto } from '@/types/torneo.types';
 
-export async function fetchTorneos(): Promise<Torneo[]> {
-  const response = await fetch(`${BACKEND_URL}/torneos`, {
+export async function fetchTorneos(userId?: string): Promise<Torneo[]> {
+  const url = userId ? `${BACKEND_URL}/torneos/usuario/${userId}` : `${BACKEND_URL}/torneos`;
+  const response = await fetch(url, {
     cache: 'no-store',
   });
   if (!response.ok) {
@@ -204,4 +208,30 @@ export async function deleteTorneo(id: string): Promise<void> {
   if (!response.ok) {
     throw new Error('Error al eliminar el torneo');
   }
+}
+
+// ----------------------------------------------------------------------
+// PARTIDOS DE TORNEO
+// ----------------------------------------------------------------------
+
+export async function createPartidoTorneo(data: CreatePartidoTorneoDto): Promise<PartidoTorneo> {
+  const response = await fetch(`${BACKEND_URL}/partidos-torneo`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    throw new Error('Error al crear el resultado del partido del torneo');
+  }
+  return response.json();
+}
+
+export async function fetchPartidosTorneo(torneoId: string): Promise<PartidoTorneo[]> {
+  const response = await fetch(`${BACKEND_URL}/partidos-torneo/torneo/${torneoId}`, {
+    cache: 'no-store',
+  });
+  if (!response.ok) {
+    throw new Error('Error al cargar historial de partidos del torneo');
+  }
+  return response.json();
 }

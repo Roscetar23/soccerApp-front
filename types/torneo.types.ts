@@ -1,19 +1,20 @@
-export type TipoTorneo = "eliminacion_directa" | "liga";
+import { Equipo } from './equipo.types';
 
-export interface EquipoTorneo {
-  nombre: string;
-  escudo: string;
-}
+export type TipoTorneo = "eliminacion_directa" | "liguilla";
 
 export interface Torneo {
   _id: string;
   nombre: string;
-  tipo: TipoTorneo;
-  equipos: EquipoTorneo[];
+  tipoFormato: TipoTorneo;
+  userId: string;
+  equipos: Equipo[];
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface CreateTorneoDto {
   nombre: string;
-  tipo: TipoTorneo;
-  equipos: EquipoTorneo[];
+  tipoFormato: TipoTorneo;
+  userId: string;
+  equipos: string[]; // Arreglo de ObjectIds (strings)
 }

@@ -1,4 +1,4 @@
-export type Liga = "colombiana" | "española" | "inglesa";
+export type Liga = "colombiana" | "española" | "inglesa" | "barrio";
 
 export interface Equipo {
   _id: string;
@@ -6,6 +6,7 @@ export interface Equipo {
   escudo: string;        // URL de imagen
   fechaCreacion: string; // ISO date string
   liga: Liga;
+  userId?: string;
 }
 
 export interface CreateEquipoDto {
@@ -13,6 +14,7 @@ export interface CreateEquipoDto {
   escudo: string;
   fechaCreacion: string;
   liga: Liga;
+  userId?: string;
 }
 
 export interface UpdateEquipoDto {

@@ -43,15 +43,15 @@ export default function RegisterPage() {
       <div className="w-full max-w-md flex flex-col gap-6">
         {/* Header */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold text-white">Registrar Usuario</h1>
-          <p className="text-slate-400 text-sm">Crea un nuevo usuario en el sistema</p>
+          <h1 className="text-3xl font-bold text-foreground">Registrar Usuario</h1>
+          <p className="text-foreground/60 text-sm">Crea un nuevo usuario en el sistema</p>
         </div>
 
         {/* Card */}
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 shadow-2xl">
+        <div className="bg-card/80 transition-colors backdrop-blur-sm border border-foreground/20 rounded-2xl p-8 shadow-2xl">
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="flex flex-col gap-1">
-              <label htmlFor="username" className="text-slate-300 text-sm font-medium">
+              <label htmlFor="username" className="text-foreground/80 text-sm font-medium">
                 Usuario
               </label>
               <input
@@ -61,13 +61,13 @@ export default function RegisterPage() {
                 onChange={(e) => setUsername(e.target.value)}
                 required
                 autoComplete="username"
-                className="w-full px-4 py-3 rounded-xl bg-slate-700/60 border border-slate-600 text-white placeholder-slate-400 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-slate-400 transition-colors"
+                className="w-full px-4 py-3 rounded-xl bg-foreground/5 transition-colors border border-foreground/20 text-foreground placeholder-slate-400 focus:outline-none focus:border-foreground/50 focus:ring-1 focus:ring-foreground/50 transition-colors"
                 placeholder="Nombre de usuario"
               />
             </div>
 
             <div className="flex flex-col gap-1">
-              <label htmlFor="password" className="text-slate-300 text-sm font-medium">
+              <label htmlFor="password" className="text-foreground/80 text-sm font-medium">
                 Contraseña
               </label>
               <input
@@ -77,7 +77,7 @@ export default function RegisterPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 autoComplete="new-password"
-                className="w-full px-4 py-3 rounded-xl bg-slate-700/60 border border-slate-600 text-white placeholder-slate-400 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-slate-400 transition-colors"
+                className="w-full px-4 py-3 rounded-xl bg-foreground/5 transition-colors border border-foreground/20 text-foreground placeholder-slate-400 focus:outline-none focus:border-foreground/50 focus:ring-1 focus:ring-foreground/50 transition-colors"
                 placeholder="Contraseña"
               />
             </div>
@@ -89,7 +89,7 @@ export default function RegisterPage() {
             )}
 
             {success && (
-              <p className="text-emerald-400 text-sm text-center" role="status">
+              <p className="text-neon text-sm text-center" role="status">
                 Usuario registrado correctamente.
               </p>
             )}
@@ -97,7 +97,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={isPending}
-              className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-600 hover:bg-slate-500 text-white font-semibold transition-all duration-200 shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-600 hover:bg-slate-500 text-foreground font-semibold transition-all duration-200 shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {isPending ? (
                 <>
@@ -113,7 +113,7 @@ export default function RegisterPage() {
 
         {/* Back link */}
         <div className="text-center">
-          <Link href="/admin" className="text-slate-400 hover:text-slate-200 text-sm transition-colors">
+          <Link href="/admin" className="text-foreground/60 hover:text-foreground/80 text-sm transition-colors">
             ← Volver a Admin
           </Link>
         </div>
