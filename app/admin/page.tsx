@@ -58,6 +58,18 @@ export default function AdminPage() {
             + Crear Partido
           </Link>
           <Link
+            href="/admin/importar"
+            className="px-6 py-2 bg-emerald-600 text-foreground rounded-lg hover:bg-emerald-700"
+          >
+            + Importar Ligas (Excel)
+          </Link>
+          <Link
+            href="/admin/importar-mundial"
+            className="px-6 py-2 bg-[#d4af37] text-black font-bold rounded-lg hover:bg-[#b5952f]"
+          >
+            + Importar Mundial (Excel)
+          </Link>
+          <Link
             href="/admin/register"
             className="px-6 py-2 bg-green-600 text-foreground rounded-lg hover:bg-green-700"
           >

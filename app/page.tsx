@@ -80,7 +80,10 @@ export default async function Home() {
             </p>
           </div>
         )}
-        <CTAButton href="/login" label="Ver todos los partidos" />
+        <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mt-4">
+           <CTAButton href="/mundial" label="🌟 Ir al Hub Mundial 2026" />
+           <CTAButton href="/login" label="Ir a Ligas y Partidos" />
+        </div>
       </main>
     </div>
   );

@@ -9,6 +9,33 @@ export class ApiError extends Error {
   }
 }
 
+export async function uploadExcelLigas(file: File): Promise<any> {
+  const formData = new FormData();
+  formData.append('file', file);
+  
+  const response = await fetch(`${BACKEND_URL}/equipos/importar-excel`, {
+    method: 'POST',
+    body: formData,
+  });
+  
+  if (!response.ok) {
+    throw new Error('Error al importar el archivo Excel');
+  }
+  return response.json();
+}
+
+export async function fetchTablaPosiciones(liga: string): Promise<Equipo[]> {
+  const response = await fetch(`${BACKEND_URL}/equipos/liga/${liga}/tabla`, { cache: 'no-store' });
+  if (!response.ok) throw new Error('Error al cargar la tabla de posiciones');
+  return response.json();
+}
+
+export async function fetchProximosPartidosEquipo(nombre: string): Promise<Partido[]> {
+  const response = await fetch(`${BACKEND_URL}/equipos/equipo/${encodeURIComponent(nombre)}/partidos`, { cache: 'no-store' });
+  if (!response.ok) throw new Error('Error al cargar próximos partidos del equipo');
+  return response.json();
+}
+
 export async function fetchProximosPartidos(): Promise<Partido[]> {
   const response = await fetch(`${BACKEND_URL}/partidos/proximos`, {
     cache: 'no-store',
@@ -232,6 +259,35 @@ export async function fetchPartidosTorneo(torneoId: string): Promise<PartidoTorn
   });
   if (!response.ok) {
     throw new Error('Error al cargar historial de partidos del torneo');
+  }
+  return response.json();
+}
+
+// ----------------------------------------------------------------------
+// MUNDIAL 2026 HUB
+// ----------------------------------------------------------------------
+
+export async function fetchMundialConfig(): Promise<any> {
+  const response = await fetch(`${BACKEND_URL}/mundial`, {
+    cache: 'no-store',
+  });
+  if (!response.ok) {
+    throw new Error('Error al cargar configuración del Mundial 2026');
+  }
+  return response.json();
+}
+
+export async function uploadExcelMundial(file: File): Promise<any> {
+  const formData = new FormData();
+  formData.append('file', file);
+  
+  const response = await fetch(`${BACKEND_URL}/mundial/importar-excel`, {
+    method: 'POST',
+    body: formData,
+  });
+  
+  if (!response.ok) {
+    throw new Error('Error al importar el archivo Excel del Mundial');
   }
   return response.json();
 }

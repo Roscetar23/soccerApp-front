@@ -1,6 +1,7 @@
 import { fetchProximosPartidos } from '@/lib/api';
 import CountdownCard from '@/components/contador/CountdownCard';
 import ErrorMessage from '@/components/ui/ErrorMessage';
+import PartidosDashboardClient from './PartidosDashboardClient';
 
 export default async function PartidosPage() {
   let partidos: Awaited<ReturnType<typeof fetchProximosPartidos>> = [];
@@ -28,11 +29,9 @@ export default async function PartidosPage() {
           <p className="text-center text-foreground/60">No hay partidos próximos</p>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {partidos.map((partido) => (
-            <CountdownCard key={partido._id} partido={partido} />
-          ))}
-        </div>
+        {!error && partidos.length > 0 && (
+          <PartidosDashboardClient initialPartidos={partidos} />
+        )}
       </div>
     </div>
   );

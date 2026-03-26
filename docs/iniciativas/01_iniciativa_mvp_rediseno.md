@@ -49,6 +49,9 @@ Ser la plataforma web "Go-To" donde cualquier jugador, organizador o fanático d
 - **Flujo 1 (El Gancho Visual / Visitante):** El usuario ingresa a la Home y lo primero que visualiza es un contador inmersivo y llamativo centrado en un partido de talla mundial (Ej. Final de la Copa del Mundo).
 - **Flujo 2 (El Consumidor / Hincha):** El usuario se loguea en la app. Consigue acceso a una zona privada donde visualiza las estadísticas exclusivas de sus equipos favoritos (partidos, posición local, puntos).
 - **Flujo 3 (El Organizador de Barrio):** El usuario navega al apartado de creación de torneos. Logra estructurar un torneo desde cero (Ej. "Copa Relámpago Barrio"), inscribe equipos, postea manualmente qué equipo ganó en el fin de semana y el sistema gráfica automáticamente la tabla y el rendimiento de los equipos.
+- **Flujo 4 (Consumo de Datos de Ligas Profesionales):** El usuario (Hincha) visualiza 3 ligas clave (ej. Liga Colombiana) con todos sus equipos completos. Puede seguir la tabla de posiciones, resultados en vivo y visualizar estadísticas reales y próximos partidos (ej. Nacional vs Millonarios).
+- **Flujo 5 (Calendario y Filtros de Partidos):** El usuario accede a la vista de partidos, utilizando un buscador y barra de filtros (por liga, equipo y o estadio) en una UI dividida. Encuentra su partido deseado y accede al inmersivo contador de tiempo restante en la pantalla derecha.
+- **Flujo 6 (Hub Mundialista 2026):** Desde la página principal inicial (Home), el visitante puede hacer clic en un botón destacado de "Ir al Mundial". Entra a una vista dividida con estética "Mundialista" donde puede navegar entre las Sedes, Estadios Oficiales, Grupos y Equipos Clasificados del torneo magno.
 
 ---
 
@@ -58,6 +61,10 @@ Ser la plataforma web "Go-To" donde cualquier jugador, organizador o fanático d
 - Frontend y Navegación Responsive (Funcional en escritorio y perfecta visualización en navegadores móviles/celulares).
 - Sistema híbrido (Consumo de datos globales + Creación de datos super-locales como torneos de barrio).
 - Un panel cerrado donde el admin carga / actualiza puntajes manualmente tras finalizar los partidos.
+- Importación y visualización de 3 ligas profesionales con todos sus equipos completos.
+- Módulo de resultados y seguimiento de partidos (tabla de posiciones, estadísticas reales, y próximos encuentros / en vivo).
+- Rediseño de la vista "Partidos" priorizando barra de filtros (Liga, Equipo, Estadio) y separación visual destacando los relojes (countdown).
+- Creación de un Hub Estático Informativo sobre la Copa del Mundo 2026 accesible desde la Home pública.
 
 ### 4.2 Out-of-Scope (Totalmente prohibido para este MVP)
 - **NO Apps Nativas:** No se destinarán esfuerzos a compilar para App Store (iOS) o Google Play (Android).
@@ -75,6 +82,14 @@ Al no poseer cobros, la plataforma es un producto puramente orientado a Comunida
 - Lograr el *"Efecto Wow"*. Validar que un usuario aficionado logre expresar: _"¡Wow! Pude crear mi torneo, administrarlo y ver exactamente los puntos de mi equipo favorito gratis"_.
 - Que el diseño no entorpezca la experiencia, sino que sea tan limpio que rivalice con grandes apps sin estar saturado.
 
+### 5.2 Criterios de Aceptación (Nuevas Funcionalidades)
+- El usuario puede ver un listado de 3 ligas profesionales (ej: Liga Colombiana) con la totalidad de sus equipos.
+- Hay un correcto despliegue visual de próximos partidos, tabla de posiciones y resultados en vivo.
+- El usuario puede ver estadísticas reales de sus equipos favoritos.
+- Toda la visualización mantiene el *"Efecto Premium"* rigiéndose estrictamente por la UI actual y las micro-interacciones exigidas en la Gema 04 (Framer Motion).
+- Los filtros en la nueva pantalla de "Partidos" operan armónicamente (Filtrando la lista alfabéticamente por liga, equipo y estadio al mismo tiempo).
+- Existe una ruta de "Mundial 2026" con paleta de colores temática, que muestra al usuario la información organizada de las Sedes, Grupos y Clasificados bajo arquitectura *Split-Screen*.
+
 ---
 
 ## Mapa de Soluciones (Solution Map)
@@ -85,3 +100,6 @@ Al no poseer cobros, la plataforma es un producto puramente orientado a Comunida
 | **02** | **Plataforma de Gestión de Torneos** (9 Slices Completos) | Flujo 3 (Organizador de Barrio) | ✅ Completado |
 | **03** | **Dashboard IA: Probabilidades de Victoria** | Flujo 2 (Consumidor / Hincha) | ✅ Completado |
 | **04** | **Arquitectura de Despliegue (Producción)** | Accesibilidad Pública Total | ⏳ Pendiente |
+| **05** | **Integración de Ligas Profesionales y Resultados** | Flujo 4 (Consumidor / Hincha) | ✅ Completado |
+| **06** | **Dashboard Premium y Filtros de Partidos** | Flujo 5 (Consumidor / Hincha) | ✅ Completado |
+| **07** | **Hub Informativo Mundial 2026** | Flujo 6 (Visitante / Hincha) | ⏳ Pendiente |
